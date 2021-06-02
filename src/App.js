@@ -16,32 +16,32 @@ class App extends Component {
     };
 
     componentDidMount() {
-        const events = localStorage.getItem("events");
+        const events = localStorage.getItem('events');
         const result = JSON.parse(events);
-        const newEvents = result.map(event => {
+        const newEvents = result?.map((event) => {
             return {
                 id: event.id,
                 start: new Date(event.start),
                 end: new Date(event.end),
-                title: event.title
-            }
+                title: event.title,
+            };
         });
         if (events) {
             this.setState({
-                events: newEvents
+                events: newEvents,
             });
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.events !== this.state.events) {
-            const newEvents = this.state.events.map(event => {
+            const newEvents = this.state.events.map((event) => {
                 return {
                     id: event.id,
-                    start: (new Date(event.start)).getTime(),
-                    end: (new Date(event.end)).getTime(),
-                    title: event.title
-                }
+                    start: new Date(event.start).getTime(),
+                    end: new Date(event.end).getTime(),
+                    title: event.title,
+                };
             });
 
             const events = JSON.stringify(newEvents);
